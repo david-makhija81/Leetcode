@@ -36,7 +36,7 @@ Constraints:
 ## Intuition
 The Task is to spot if any element in the array exists more than. When an arrangement with duplicate elements is rearranged in a non-ascending order the duplicate elements come consecutive to each other.
 
-## Algorithm
+## Approach
 1. Sort the array of numbers in a non-ascending order. 
 *(Now the duplicate elements must have come consecutive to each other)*
 2. Go through the arrangement of elements comparing each element to the one placed next to it, if the 2 elements match - ***return true***.
