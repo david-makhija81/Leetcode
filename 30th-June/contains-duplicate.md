@@ -26,7 +26,10 @@ Constraints:
 
     1 <= nums.length <= 10^5
     -10^9 <= nums[i] <= 10^9
-
+<br/>
+<br/>
+<br/>
+<br/>
 # Solution 1
 
 ## Intuition
@@ -65,7 +68,10 @@ public:
 
 *Where:* 
 - **N** is the number of elements in the arrangement.
-
+<br/>
+<br/>
+<br/>
+<br/>
 # Solution 2
 The previous solution alters the original arrangement. Alternatively let's try a solution that keeps the original arrangement in tact.
 
