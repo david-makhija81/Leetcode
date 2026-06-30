@@ -65,3 +65,52 @@ public:
 
 *Where:* 
 - **N** is the number of elements in the arrangement.
+
+# Solution 2
+The previous solution alters the original arrangement. Alternatively let's try a solution that keeps the original arrangement in tact.
+
+## Intuition
+If we maintain the count of each element in a separate structure, it is easy to spot if any element occurred more than once.
+
+## Algorithm
+1. Create a hashmap that maps integer keys to integer values.
+<br>
+*It will be useful for keeping track of the count of each element.*
+
+2. Go through the arrangement - each element at a time - if the element already exists in the hashmap, break the loop and - ***return true***.
+
+3. If the element is not yet present in the hashmap, add it to the hashmap as a key and set the value against this key to be equal to 1 denoting the number of times it has occurred till now.
+
+4. If after going through elements you do not come across an element that was already present in the hashmap - ***return false***.
+
+## Code
+
+```cpp
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> alreadyOccuredNums;
+
+        for(int num: nums) {
+            if(alreadyOccuredNums.find(num) != alreadyOccuredNums.end()) {
+                return true; // Current element already exists in the set
+            }
+
+            alreadyOccuredNums.insert(num);
+        }
+
+        return false;
+    }
+};
+```
+
+## Complexity
+
+**Average Time Complexity: O(N)**
+
+**Worst Time Complexity: O(N<sup>2</sup>)**
+
+**Space Complexity: O(N)**
+
+*Where:* 
+- **N** is the number of elements in the arrangement.
