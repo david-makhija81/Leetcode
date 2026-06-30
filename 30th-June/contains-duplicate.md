@@ -80,7 +80,7 @@ The previous solution alters the original arrangement. Alternatively let's try a
 ## Intuition
 If we maintain the count of each element in a separate structure, it is easy to spot if any element occurred more than once.
 
-## Algorithm
+## Approach
 1. Create a hashmap that maps integer keys to integer values.
 *(It will be useful for keeping track of the count of each element)*
 
