@@ -82,8 +82,7 @@ If we maintain the count of each element in a separate structure, it is easy to 
 
 ## Algorithm
 1. Create a hashmap that maps integer keys to integer values.
-<br>
-*It will be useful for keeping track of the count of each element.*
+*(It will be useful for keeping track of the count of each element)*
 
 2. Go through the arrangement - each element at a time - if the element already exists in the hashmap, break the loop and - ***return true***.
 
