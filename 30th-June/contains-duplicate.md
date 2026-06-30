@@ -30,6 +30,7 @@ Constraints:
 <br/>
 <br/>
 <br/>
+
 # Solution 1
 
 ## Intuition
@@ -72,6 +73,7 @@ public:
 <br/>
 <br/>
 <br/>
+
 # Solution 2
 The previous solution alters the original arrangement. Alternatively let's try a solution that keeps the original arrangement in tact.
 
