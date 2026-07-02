@@ -74,3 +74,102 @@ public:
 
 *Where:* 
 - **N** is the number if elements in the array nums.
+
+# Solution 2
+Talking about the previous solution, it took way more time for the test cases then it is allowed to. Also, it did not filter out duplicate triplets. Thus, this solution is an attempt to reduce the time complexity as well as covering the edge cases of filtering out the duplicate triplets.
+
+## Intuition
+To reduce the time complexity we can introduce some changes in the part where we are searching for two elements that sum up to the negative of the first element. If we look at the problem statement it says that the resulting triplets can be arranged in any order whatsoever. Thus, we may rearrange the sequence in any order that aids us in finding these triplets in a much faster way. If we rearrange this sequence in a non-descending order, then the number of operations required for finding a sum of two elements becomes way less than what it was earlier. And if we eliminate the duplicate elements from the sequence it further eliminates the risk of adding duplicate triplets. But there will be some edge cases where we will need the duplicate elements as they can also contribute in the desired results like: {-1, -1, 2}, {1, 1, -2} and {0, 0, 0}.
+
+## Approach
+1. First we will sort the sequence in a non-descending order.
+1. Then we will compute the special triplets that contain duplicates and that are only made via duplicates.
+2. Then we will make a new sequence that does not consist of duplicate elements.
+3. Then for each element, we take out the rest of the sequence grab the 2 ends of that sequence opposite to each other.
+4. We will shift the observations on the ends towards each other until they meet in the middle.
+5. If the sum of the elements on these 2 ends is greater than the required sum we shift the right end towards left because the sequence is non-descending and thus, the right element is the bigger one of the two and if we shift our observation to one position left of the right end then the new sum would be smaller than the previous one.
+6. Else if the sum is greater than required we consider the element on one position to the right of the left end.
+7. When we find the 2 elements with their sum equal to the desired value, we add to the record.
+
+## Code
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> result;
+
+        sort(nums.begin(), nums.end());
+        int zeroCount = 0;
+
+        for(int i = 0; i < nums.size() - 1; i++) {
+            if((nums[i] == nums[i + 1]) && ((i == 0) || (nums[i] != nums[i - 1]))) {
+                for(int j = i + 2; j < nums.size(); j++) {
+                    if((nums[j] != nums[i]) && ((nums[i] + nums[i + 1] + nums[j]) == 0)) {
+                        result.push_back({nums[i], nums[i + 1], nums[j]});
+                        break;
+                    }
+                }
+            }
+
+            if(nums[i] == 0) {
+                zeroCount++;
+            }
+        }
+
+        zeroCount = (nums[nums.size() - 1] == 0) ? (zeroCount + 1) : zeroCount;
+
+        if(zeroCount > 2) {
+            result.push_back({0, 0, 0});
+        }
+
+        for(int i = nums.size() - 1; i > 0; i--) {
+            if((nums[i] == nums[i - 1]) && ((i == (nums.size() - 1)) || (nums[i] != nums[i + 1]))) {
+                for(int j = i - 2; j >= 0; j--) {
+                    if((nums[j] != nums[i]) && ((nums[j] + nums[i - 1] + nums[i]) == 0)) {
+                        result.push_back({nums[j], nums[i - 1], nums[i]});
+                        break;
+                    }
+                }
+            }
+        }
+
+        vector<int> noDuplicates;
+
+        for(int num: nums) {
+            if(noDuplicates.empty() || (noDuplicates.back() != num)) {
+                noDuplicates.push_back(num);
+            }
+        }
+
+        for(int i = 0; i < noDuplicates.size(); i++) {
+            int leftEnd = i + 1, rightEnd = (noDuplicates.size() - 1);
+
+            while(leftEnd < rightEnd) {
+                int sum = (noDuplicates[i] + noDuplicates[leftEnd] + noDuplicates[rightEnd]);
+                if(sum == 0) {
+                    result.push_back({noDuplicates[i], noDuplicates[leftEnd], noDuplicates[rightEnd]});
+                    leftEnd++;
+                    rightEnd--;
+                } else if(sum < 0) {
+                    leftEnd++;
+                } else {
+                    rightEnd--;
+                }
+            }
+        }
+
+        return result;
+    }
+};
+```
+
+## Complexity
+
+**Time Complexity: O(N<sup>2</sup>)**
+
+**Space Complexity: O(M)**
+
+*Where:* 
+- **N** is the number of elements in the sequence. 
+- **M** is the number of unique elements in the sequence.
